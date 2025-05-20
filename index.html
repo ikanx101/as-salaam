@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="quarto-dashboard dashboard-fill fullcontent">
+<body class="quarto-dashboard dashboard-fill dashboard-sidebar fullcontent">
 
 <header id="quarto-dashboard-header">
 <nav class="navbar navbar-expand-md slim" data-bs-theme="dark">
@@ -63,17 +63,40 @@ ul.task-list li input[type="checkbox"] {
         
       </div>
     </div>
-<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-shiny-documents" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#shiny-documents" data-scrolling="false" href="#shiny-documents" aria-controls="shiny-documents" aria-selected="true"><span class="nav-link-text">Shiny Documents</span></a></li><li class="nav-item" role="presentation"><a id="tab-inputs-and-outputs" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#inputs-and-outputs" data-scrolling="false" href="#inputs-and-outputs" aria-controls="inputs-and-outputs" aria-selected="false"><span class="nav-link-text">Inputs and Outputs</span></a></li></ul></div></div>
+<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-laporan-kas-operasional" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#laporan-kas-operasional" data-scrolling="false" href="#laporan-kas-operasional" aria-controls="laporan-kas-operasional" aria-selected="true"><span class="nav-link-text">Laporan Kas Operasional</span></a></li><li class="nav-item" role="presentation"><a id="tab-laporan-qurban-2025" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#laporan-qurban-2025" data-scrolling="false" href="#laporan-qurban-2025" aria-controls="laporan-qurban-2025" aria-selected="false"><span class="nav-link-text">Laporan Qurban 2025</span></a></li><li class="nav-item" role="presentation"><a id="tab-cara-berinfaq" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#cara-berinfaq" data-scrolling="false" href="#cara-berinfaq" aria-controls="cara-berinfaq" aria-selected="false"><span class="nav-link-text">Cara Berinfaq</span></a></li></ul></div></div>
 </nav>
 </header>
-<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill quarto-dashboard-pages">  
+<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill quarto-dashboard-pages dashboard-sidebar-container">  
 
-<div class="bslib-grid-item html-fill-item tab-content bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
-<div id="shiny-documents" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-shiny-documents">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
-<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="bslib-sidebar-layout html-fill-item html-fill-container" data-bslib-sidebar-open="desktop" data-bslib-sidebar-init="true" data-bslib-sidebar-border="false" data-bslib-sidebar-border-radius="false"><div class="main html-fill-container html-fill-item"><div class="sidebar-content html-fill-item html-fill-container">
+<div class="tab-content bslib-grid html-fill-item html-fill-container" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div id="laporan-kas-operasional" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-laporan-kas-operasional">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Kas Mushalla" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title html-fill-item html-fill-container"><span style="display: inline">
+Kas Mushalla
+</span></div></div>
 <div class="card-body html-fill-item html-fill-container">
-<p>This Quarto document is made interactive using Shiny. Interactive documents allow readers to modify parameters and see the results immediately. Learn more about Shiny interactive documents at <a href="https://quarto.org/docs/interactive/shiny/" class="uri">https://quarto.org/docs/interactive/shiny/</a>.</p>
+<div class="cell-output-display html-fill-item html-fill-container no-overflow-x">
+<div class="shiny-html-output col-sm-4 html-fill-item html-fill-container" id="saldo_kas"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell html-fill-item html-fill-container bslib-card" data-title="Proporsi Penggunaan" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title html-fill-item html-fill-container"><span style="display: inline">
+Proporsi Penggunaan
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="shiny-plot-output html-fill-item html-fill-container" id="proporsi_plot" style="width:100%;height:400px;"></div>
+</div>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
     <template>Expand</template>
@@ -82,29 +105,39 @@ ul.task-list li input[type="checkbox"] {
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-</div>
-<div id="inputs-and-outputs" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-inputs-and-outputs">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
-<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<p>You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change. This demonstrates how a standard R plot can be made interactive:</p>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div class="form-group shiny-input-container html-fill-item html-fill-container no-baseline">
-<label class="control-label" id="bins-label" for="bins">Number of bins:</label>
-<input class="js-range-slider" id="bins" data-skin="shiny" data-min="1" data-max="50" data-from="30" data-step="1" data-grid="true" data-grid-num="9.8" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number">
+<div id="filter_tahun_kas" class="form-group shiny-input-checkboxgroup shiny-input-container html-fill-item html-fill-container" role="group" aria-labelledby="filter_tahun_kas-label">
+<label class="control-label" id="filter_tahun_kas-label" for="filter_tahun_kas">Pilih tahun transaksi</label>
+<div class="shiny-options-group html-fill-item html-fill-container">
+<div class="checkbox html-fill-item html-fill-container">
+<label>
+<input type="checkbox" name="filter_tahun_kas" value="2024">
+<span>2024</span>
+</label>
+</div>
+<div class="checkbox html-fill-item html-fill-container">
+<label>
+<input type="checkbox" name="filter_tahun_kas" value="2025">
+<span>2025</span>
+</label>
 </div>
 </div>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div class="shiny-plot-output html-fill-item html-fill-container" id="distPlot" style="width:100%;height:400px;"></div>
+<div class="shiny-plot-output html-fill-item html-fill-container" id="timeline" style="width:100%;height:400px;"></div>
 </div>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
@@ -113,14 +146,71 @@ ul.task-list li input[type="checkbox"] {
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div><div id="laporan-qurban-2025" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-laporan-qurban-2025">
+
+</div><div id="cara-berinfaq" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-cara-berinfaq">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: ; grid-auto-columns: minmax(0, 1fr);">
 <div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
 </div>
+</div></div><aside id="bslib-sidebar-1" class="sidebar html-fill-container html-fill-item"><div class="html-fill-container html-fill-item">
+<p>ِبِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيْم</p>
+<p>Dengan memohon rahmat dan ridho Allah Subhanahu wa Ta’ala, kami menyampaikan Laporan Keuangan Mushalla As Salaam sebagai bentuk pertanggungjawaban atas pengelolaan dana yang dipercayakan oleh jamaah dan donatur. Laporan ini mencakup seluruh pemasukan dan pengeluaran selama periode 2024-2025, yang diharapkan dapat memberikan transparansi serta kepercayaan dalam pengelolaan keuangan mushalla. Semoga laporan ini menjadi sarana evaluasi dan perbaikan untuk meningkatkan kualitas pelayanan kepada masyarakat.</p>
+<p>Keberlangsungan aktivitas ibadah dan sosial di Mushalla As Salaam tidak lepas dari dukungan finansial yang dikelola secara amanah dan profesional. Melalui laporan ini, kami berupaya memastikan setiap rupiah digunakan sesuai dengan kebutuhan dan prioritas mushalla, baik untuk operasional harian, kegiatan keagamaan, maupun perawatan fasilitas. Kami mengucapkan terima kasih kepada seluruh pihak yang telah berkontribusi dan berpartisipasi, serta mengharapkan saran dan masukan untuk kemajuan mushalla ke depan.</p>
+<p>Dikembangkan oleh <a href="https://ikanx101.com">ikanx101.com</a>.</p>
+</div></aside>
+<button class="collapse-toggle" type="button" title="Toggle sidebar" aria-expanded="true" aria-controls="bslib-sidebar-1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-chevron-left collapse-icon" style="fill:currentColor;" aria-hidden="true" role="img">
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+    </svg>
+</button>
+<script data-bslib-sidebar-init="">
+bslib.Sidebar.initCollapsibleAll()
+</script>
+</div>
 <p>
 <script type="application/shiny-prerendered" data-context="server">
+# value box untuk saldo kas
+output$saldo_kas = renderValueBox({
+  valueBox(
+    title = "Saldo Kas Mushalla",
+    subtitle = "di Rekening Bank Jago Syariah",
+    value = saldo_update,
+    icon = icon("wallet")
+    )
+})
+
+output$proporsi_plot = renderPlot({
+  batas_bawah = sum(df_operasional$output,na.rm = T) * 1.1
+batas_atas  = sum(df_operasional$input,na.rm = T) * 1.1
+
+df_operasional %>% 
+  mutate(input = ifelse(is.na(input),0,input),
+         output = ifelse(is.na(output),0,output)
+         ) %>% 
+  mutate(trans = input - output) %>% 
+  group_by(kategori) %>% 
+  summarise(trans = sum(trans)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = kategori,y = trans)) +
+  geom_col() +
+  geom_label(aes(label = scales::number(abs(trans),
+                                        prefix = "Rp",
+                                        big.mark = ".",
+                                        decimal.mark = ",")),
+             hjust = .5,
+             size = 3
+             ) +
+  coord_flip() +
+  ylim(-batas_bawah,batas_atas)
+
+})
+
 output$distPlot <- renderPlot({
    x <- faithful[, 2]  # Old Faithful Geyser data
    bins <- seq(min(x), max(x), length.out = input$bins + 1)
@@ -159,12 +249,12 @@ ojs_define <- function(..., .session = shiny::getDefaultReactiveDomain()) {
 </p>
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-javascript"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/ion.rangeSlider.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["strftime"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/strftime"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["strftime-min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-css"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/ion.rangeSlider.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71]}},"value":[{"type":"character","attributes":{},"value":["abind","backports","base","broom","bslib","cachem","car","carData","cli","compiler","datasets","digest","dplyr","evaluate","farver","fastmap","Formula","generics","ggplot2","ggpubr","ggsignif","glue","graphics","grDevices","grid","gtable","htmltools","htmlwidgets","httpuv","janitor","jquerylib","jsonlite","knitr","later","lifecycle","lubridate","magrittr","memoise","methods","mime","pillar","pkgconfig","plyr","promises","purrr","R6","RColorBrewer","Rcpp","reshape2","rlang","rmarkdown","rstatix","rstudioapi","sass","scales","shiny","snakecase","stats","stringi","stringr","tibble","tidyr","tidyselect","timechange","tools","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4-8","1.5.0","4.5.0","1.0.8","0.9.0","1.1.0","3.1-3","3.0-5","3.6.5","4.5.0","4.5.0","0.6.37","1.1.4","1.0.3","2.1.2","1.2.0","1.2-5","0.1.4","3.5.2","0.6.0","0.6.4","1.8.0","4.5.0","4.5.0","4.5.0","0.3.6","0.5.8.1","1.6.4","1.6.16","2.2.1","0.1.4","2.0.0","1.50","1.4.2","1.0.4","1.9.4","2.0.3","2.0.1","4.5.0","0.13","1.10.2","2.0.3","1.8.9","1.3.2","1.0.4","2.6.1","1.1-3","1.0.14","1.4.4","1.1.6","2.29","0.7.2","0.17.1","0.4.10","1.4.0","1.10.0","0.11.1","4.5.0","1.8.7","1.5.1","3.2.1","1.3.1","1.2.1","0.3.0","4.5.0","4.5.0","0.6.5","3.0.2","0.52","1.8-4","2.3.10"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68]}},"value":[{"type":"character","attributes":{},"value":["abind","backports","base","broom","car","carData","cli","compiler","datasets","digest","dplyr","evaluate","farver","fastmap","Formula","generics","ggplot2","ggpubr","ggsignif","glue","graphics","grDevices","grid","gtable","htmltools","htmlwidgets","httpuv","janitor","jsonlite","knitr","later","lifecycle","lubridate","magrittr","methods","mime","pillar","pkgconfig","plyr","promises","purrr","R6","RColorBrewer","Rcpp","reshape2","rlang","rmarkdown","rstatix","rstudioapi","scales","shiny","shinydashboard","snakecase","stats","stringi","stringr","tibble","tidyr","tidyselect","timechange","tools","utf8","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4-8","1.5.0","4.5.0","1.0.8","3.1-3","3.0-5","3.6.5","4.5.0","4.5.0","0.6.37","1.1.4","1.0.3","2.1.2","1.2.0","1.2-5","0.1.4","3.5.2","0.6.0","0.6.4","1.8.0","4.5.0","4.5.0","4.5.0","0.3.6","0.5.8.1","1.6.4","1.6.16","2.2.1","2.0.0","1.50","1.4.2","1.0.4","1.9.4","2.0.3","4.5.0","0.13","1.10.2","2.0.3","1.8.9","1.3.2","1.0.4","2.6.1","1.1-3","1.0.14","1.4.4","1.1.6","2.29","0.7.2","0.17.1","1.4.0","1.10.0","0.7.3","0.11.1","4.5.0","1.8.7","1.5.1","3.2.1","1.3.1","1.2.1","0.3.0","4.5.0","1.2.5","4.5.0","0.6.5","3.0.2","0.52","1.8-4","2.3.10"]}]}]}
 </script>
 <!--/html_preserve-->
 

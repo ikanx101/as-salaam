@@ -21,25 +21,129 @@ library(reshape2)
 library(ggpubr)
 library(janitor)
 library(shiny)
+library(shinydashboard)
+
+load("all_data.rda")
+
+# membuat tahun pilihan saldo operasional
+tahun_op = df_operasional %>% pull(tahun) %>% unique() %>% sort()
+
+# menghitung update saldo terakhir
+saldo_update = 
+  df_operasional %>% 
+  summarise(masuk = sum(input,na.rm = T),
+            keluar = sum(output,na.rm = T)) %>% 
+  ungroup() %>% 
+  mutate(saldo = masuk - keluar) %>% 
+  pull(saldo) %>% 
+  scales::number(prefix = "Rp",big.mark = ".",decimal.mark = ",")
+
+
+df_operasional %>% 
+  group_by(kategori) %>% 
+  summarise(trans = sum(input,na.rm = T)) %>% 
+  ungroup() %>% 
+  filter(trans > 0 ) %>% 
+  filter(grepl("infaq|mutasi",kategori,ignore.case = T)) %>% 
+  mutate(persen = trans / sum(trans) * 100,
+         persen = round(persen,2),
+         label = paste0(persen,"%"))
+
+df_operasional %>% 
+  group_by(kategori) %>% 
+  summarise(trans = sum(output,na.rm = T)) %>% 
+  ungroup() %>% 
+  filter(trans > 0 ) %>% 
+  mutate(persen = trans / sum(trans) * 100,
+         persen = round(persen,2),
+         label = paste0(persen,"%"))
+
 ```
 
 
-# Shiny Documents
+# {.sidebar}
 
-This Quarto document is made interactive using Shiny. Interactive documents allow readers to modify parameters and see the results immediately. Learn more about Shiny interactive documents at <https://quarto.org/docs/interactive/shiny/>.
+ِبِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيْم
 
-# Inputs and Outputs
+Dengan memohon rahmat dan ridho Allah Subhanahu wa Ta’ala, kami menyampaikan Laporan Keuangan Mushalla As Salaam sebagai bentuk pertanggungjawaban atas pengelolaan dana yang dipercayakan oleh jamaah dan donatur. Laporan ini mencakup seluruh pemasukan dan pengeluaran selama periode 2024-2025, yang diharapkan dapat memberikan transparansi serta kepercayaan dalam pengelolaan keuangan mushalla. Semoga laporan ini menjadi sarana evaluasi dan perbaikan untuk meningkatkan kualitas pelayanan kepada masyarakat.  
 
-You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change. This demonstrates how a standard R plot can be made interactive:
+Keberlangsungan aktivitas ibadah dan sosial di Mushalla As Salaam tidak lepas dari dukungan finansial yang dikelola secara amanah dan profesional. Melalui laporan ini, kami berupaya memastikan setiap rupiah digunakan sesuai dengan kebutuhan dan prioritas mushalla, baik untuk operasional harian, kegiatan keagamaan, maupun perawatan fasilitas. Kami mengucapkan terima kasih kepada seluruh pihak yang telah berkontribusi dan berpartisipasi, serta mengharapkan saran dan masukan untuk kemajuan mushalla ke depan.
+
+Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
+
+# Laporan Kas Operasional
+
+## Row {height = 40}
 
 ```{r}
-sliderInput("bins", "Number of bins:", 
-            min = 1, max = 50, value = 30)
-plotOutput("distPlot")
+#| title: Kas Mushalla
+
+valueBoxOutput("saldo_kas")
 ```
+
+```{r}
+#| title: Proporsi Penggunaan
+
+plotOutput("proporsi_plot")
+```
+
+## Row {height = 60}
+
+```{r}
+checkboxGroupInput( 
+    "filter_tahun_kas", 
+    "Pilih tahun transaksi", 
+    tahun_op)
+```
+
+```{r}
+plotOutput("timeline")
+```
+
+# Laporan Qurban 2025
+
+# Cara Berinfaq
+
 
 ```{r}
 #| context: server
+
+# value box untuk saldo kas
+output$saldo_kas = renderValueBox({
+  valueBox(
+    title = "Saldo Kas Mushalla",
+    subtitle = "di Rekening Bank Jago Syariah",
+    value = saldo_update,
+    icon = icon("wallet")
+    )
+})
+
+output$proporsi_plot = renderPlot({
+  batas_bawah = sum(df_operasional$output,na.rm = T) * 1.1
+batas_atas  = sum(df_operasional$input,na.rm = T) * 1.1
+
+df_operasional %>% 
+  mutate(input = ifelse(is.na(input),0,input),
+         output = ifelse(is.na(output),0,output)
+         ) %>% 
+  mutate(trans = input - output) %>% 
+  group_by(kategori) %>% 
+  summarise(trans = sum(trans)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = kategori,y = trans)) +
+  geom_col() +
+  geom_label(aes(label = scales::number(abs(trans),
+                                        prefix = "Rp",
+                                        big.mark = ".",
+                                        decimal.mark = ",")),
+             hjust = .5,
+             size = 3
+             ) +
+  coord_flip() +
+  ylim(-batas_bawah,batas_atas)
+
+})
+
 output$distPlot <- renderPlot({
    x <- faithful[, 2]  # Old Faithful Geyser data
    bins <- seq(min(x), max(x), length.out = input$bins + 1)

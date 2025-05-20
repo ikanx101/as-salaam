@@ -68,7 +68,8 @@ df_operasional =
   filter(!is.na(tanggal)) %>% 
   mutate(tahun = lubridate::year(tanggal),
          bulan = lubridate::month(tanggal,label = T)) %>% 
-  select(-saldo)
+  select(-saldo) %>% 
+  mutate(timeline = format(tanggal,"%B %Y"))
 
 # ============================================================
 
