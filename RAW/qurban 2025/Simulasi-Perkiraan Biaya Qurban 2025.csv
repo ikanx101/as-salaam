@@ -1,0 +1,17 @@
+No;Keterangan;Cost per unit;Unit;Banyak Unit;Total
+Biaya terkait pemotongan dan pembelian sapi;;;;;
+1;Sapi qurban;Rp 23.500.000;Ekor;2;Rp 47.000.000
+;;;;;Rp 0
+3;Sewa tenda;Rp 250.000;Tenda;8;Rp 2.000.000
+4;Biaya jagal;Rp 1.500.000;Sapi;2;Rp 3.000.000
+5;Tenaga kerja tambahan;Rp 100.000;Orang;15;Rp 1.500.000
+6;Pembelian peralatan dan perlengkapan (tali, pisau, plastik, dll);Rp 1.000.000;;1;Rp 1.000.000
+7;Konsumsi (diberikan ke ibu-ibu);Rp 1.000.000;;1;Rp 1.000.000
+8;Kebersihan;Rp 200.000;;1;Rp 200.000
+9;Printing kupon dan dokumen;Rp 100.000;;1;Rp 100.000
+Total Biaya;;;;;Rp 55.800.000
+Pemasukan dari Pengqurban Sapi dan Kambing;;;;;
+;Sapi;Rp 4.000.000;Orang;14;Rp 56.000.000
+;Kambing;Rp 200.000;Orang;0;Rp 0
+;Sapi (hanya potong);Rp 1.500.000;Orang;0;Rp 0
+Total Pemasukan;;;;;Rp 56.000.000
