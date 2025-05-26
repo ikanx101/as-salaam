@@ -69,7 +69,19 @@ df_operasional =
   mutate(tahun = lubridate::year(tanggal),
          bulan = lubridate::month(tanggal,label = T)) %>% 
   select(-saldo) %>% 
-  mutate(timeline = format(tanggal,"%B %Y"))
+  mutate(kategori = ifelse(grepl("kafalah",kategori,ignore.case = T),
+                           "Kajian pekanan",
+                           kategori)) %>% 
+  mutate(timeline = format(tanggal,"%B %Y")) %>% 
+  mutate(timeline = factor(timeline,
+                           levels   = c("May 2024","June 2024","July 2024","August 2024","September 2024",
+                                        "October 2024","November 2024","December 2024","January 2025",
+                                        "February 2025","March 2025","April 2025","May 2025")
+                           ),
+         
+         ) %>% 
+  rename(in_trans  = input,
+         out_trans = output)
 
 # ============================================================
 

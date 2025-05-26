@@ -19,7 +19,6 @@ library(ggpubr)
 library(tidyr)
 library(dplyr)
 library(reshape2)
-library(ggpubr)
 library(janitor)
 library(shiny)
 library(shinydashboard)
@@ -33,32 +32,13 @@ tahun_op = df_operasional %>% pull(tahun) %>% unique() %>% sort()
 # menghitung update saldo terakhir
 saldo_update = 
   df_operasional %>% 
-  summarise(masuk = sum(input,na.rm = T),
-            keluar = sum(output,na.rm = T)) %>% 
+  summarise(masuk = sum(in_trans,na.rm = T),
+            keluar = sum(out_trans,na.rm = T)) %>% 
   ungroup() %>% 
   mutate(saldo = masuk - keluar) %>% 
   pull(saldo) %>% 
   scales::number(prefix = "Rp",big.mark = ".",decimal.mark = ",")
 
-
-df_operasional %>% 
-  group_by(kategori) %>% 
-  summarise(trans = sum(input,na.rm = T)) %>% 
-  ungroup() %>% 
-  filter(trans > 0 ) %>% 
-  filter(grepl("infaq|mutasi",kategori,ignore.case = T)) %>% 
-  mutate(persen = trans / sum(trans) * 100,
-         persen = round(persen,2),
-         label = paste0(persen,"%"))
-
-df_operasional %>% 
-  group_by(kategori) %>% 
-  summarise(trans = sum(output,na.rm = T)) %>% 
-  ungroup() %>% 
-  filter(trans > 0 ) %>% 
-  mutate(persen = trans / sum(trans) * 100,
-         persen = round(persen,2),
-         label = paste0(persen,"%"))
 
 ```
 
@@ -75,67 +55,69 @@ __Setiap panel pada laporan ini bisa di-*maximize* agar mudah dilihat.__
 
 Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
 
-# Cara Berinfaq
+
+# Laporan Kas Operasional
+
+## Row {height=50%}
+
+### Column {width=20%}
 
 ```{r}
-#| title: Cara Praktis Berinfaq
-h6("Saluran infaq terbaik Anda dengan QRIS berikut ini:")
+value_box( 
+    title = "Saldo Kas Mushalla Saat Ini",
+    subtitle = "di Rekening Bank Jago Syariah",
+    value = tags$p(saldo_update, style = "font-size: 25px; color: steelblue;"),
+    showcase = icon("wallet"), 
+    full_screen = F 
+    )
+
+h5("Download Laporannya")
+downloadButton("download_df_ops", "Download!")
+```
+
+### Column {width=70%}
+
+```{r}
+#| title: Saluran infaq terbaik Anda dengan QRIS berikut ini
 imageOutput("qris")
 ```
 
-# Laporan Kas Operasional
+### Column {width=10%}
+
+```{r}
+checkboxGroupInput( 
+    "filter_tahun_kas", 
+    "Pilih tahun transaksi untuk mengubah tampilan grafik", 
+    choices  = tahun_op,
+    selected = tahun_op)
+```
 
 ## Row {height=50%}
 
 ### Column {width=30%}
 
 ```{r}
-#| title: Kas Mushalla
-
-value_box( 
-    title = "Saldo Kas Mushalla Saat Ini",
-    subtitle = "di Rekening Bank Jago Syariah",
-    value = saldo_update,
-    showcase = icon("wallet"), 
-    full_screen = F 
-    )
-```
-
-### Column {width=50%}
-
-```{r}
-#| title: Proporsi Penggunaan
+#| title: Proporsi Penerimaan dan Penggunaan Kas Mushalla
 
 plotOutput("proporsi_plot")
 ```
 
-### Column {width=20%}
+### Column {width=70%}
 
 ```{r}
-checkboxGroupInput( 
-    "filter_tahun_kas", 
-    "Pilih tahun transaksi", 
-    choices  = tahun_op,
-    selected = tahun_op)
+#| title: Timeline Transaksi Keluar Masuk Kas Mushalla
 
-h5("Download data excel-nya")
-downloadButton("download_df_ops", "Download!")
-```
-
-## Row {height=50%}
-
-```{r}
 plotOutput("timeline")
 ```
 
-
 # Laporan Qurban 2025
-
-# Cara Berinfaq
 
 
 ```{r}
 #| context: server
+
+# ==============================================================================
+# laporan kas mushalla
 
 df_ops = reactive({
   pilihan = as.numeric(input$filter_tahun_kas)
@@ -143,14 +125,14 @@ df_ops = reactive({
 })
 
 output$proporsi_plot = renderPlot({
-  batas_bawah = sum(df_ops()$output,na.rm = T) * 1.1
-  batas_atas  = sum(df_ops()$input,na.rm = T) * 1.1
+  batas_bawah = sum(df_ops()$out_trans,na.rm = T) * 1.1
+  batas_atas  = sum(df_ops()$in_trans,na.rm = T) * 1.1
 
   df_ops() %>% 
-    mutate(input = ifelse(is.na(input),0,input),
-           output = ifelse(is.na(output),0,output)
+    mutate(in_trans = ifelse(is.na(in_trans),0,in_trans),
+           out_trans = ifelse(is.na(out_trans),0,out_trans)
            ) %>% 
-    mutate(trans = input - output) %>% 
+    mutate(trans = in_trans - out_trans) %>% 
     group_by(kategori) %>% 
     summarise(trans = sum(trans)) %>% 
     ungroup() %>% 
@@ -162,7 +144,7 @@ output$proporsi_plot = renderPlot({
                                           big.mark = ".",
                                           decimal.mark = ",")),
                hjust = .5,
-               size = 3
+               size = 4
                ) +
     coord_flip() +
     scale_fill_manual(values = c("steelblue","darkred")) +
@@ -177,17 +159,56 @@ output$proporsi_plot = renderPlot({
          caption = "Dari grafik di atas, kita bisa melihat dari infaq yang diberikan\nhendak digunakan untuk aktivitas apa saja.") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          axis.text.x = element_blank())
+          axis.text.x = element_blank(),
+          plot.title = element_text(size = 15),
+          plot.subtitle = element_text(size = 14),
+          axis.text.y = element_text(size = 15),
+          plot.caption = element_text(size = 15),
+          legend.text = element_text(size = 15))
 
 })
 
 output$qris <- renderImage( 
     { 
-      list(src = "QRIS Musholla.jpg") 
+      list(src = "QRIS_Musholla.jpg",height = "95%",width = "90%") 
     }, 
     deleteFile = FALSE 
   ) 
 
+output$timeline = renderPlot({
+  df_ops() %>% 
+    group_by(timeline) %>% 
+    summarise(in_trans  = sum(in_trans,na.rm = T),
+              out_trans = sum(out_trans,na.rm = T)) %>% 
+    ungroup() %>% 
+    melt() %>% 
+    mutate(value_axis = ifelse(variable == "in_trans",value,-value),
+           label      = scales::dollar(value,prefix = "Rp")) %>% 
+    mutate(variable = ifelse(variable == "in_trans","in","out")) %>% 
+    ggplot(aes(x = timeline,
+               y = value_axis)) +
+    geom_col(color = "black",aes(fill = variable)) +
+    geom_label(aes(label = label)) +
+    scale_fill_manual(values = c("steelblue","darkred")) +
+    labs(title = "Besaran Total Transaksi per Bulan",
+         subtitle = paste0("Pada tahun: ",
+                           paste(input$filter_tahun_kas,
+                                 collapse = " dan ")),
+         x = "Bulan",
+         y = "Total Transaksi",
+         fill = "Keterangan",
+         caption = "Dari grafik di atas, kita bisa melihat berapa kas masuk dan keluar per bulan") +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          axis.text.y = element_blank(),
+          plot.title = element_text(size = 15),
+          plot.subtitle = element_text(size = 14),
+          axis.text.x = element_text(size = 15),
+          plot.caption = element_text(size = 15),
+          legend.text = element_text(size = 15)) +
+    scale_x_discrete(guide = guide_axis(n.dodge = 3))
+})
+# ==============================================================================
 
 
 ```
