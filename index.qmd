@@ -23,11 +23,13 @@ library(janitor)
 library(shiny)
 library(shinydashboard)
 library(bslib)
+library(openxlsx)
 
 load("all_data.rda")
 
 # membuat tahun pilihan saldo operasional
 tahun_op = df_operasional %>% pull(tahun) %>% unique() %>% sort()
+bulan_op = df_operasional %>% pull(bulan) %>% unique() %>% sort() %>% as.character()
 
 # menghitung update saldo terakhir
 saldo_update = 
@@ -38,7 +40,6 @@ saldo_update =
   mutate(saldo = masuk - keluar) %>% 
   pull(saldo) %>% 
   scales::number(prefix = "Rp",big.mark = ".",decimal.mark = ",")
-
 
 ```
 
@@ -58,31 +59,30 @@ Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
 
 # Laporan Kas Operasional
 
-## Row {height=50%}
+## Row {height=40%}
 
-### Column {width=20%}
+### Column {width=30%}
 
 ```{r}
 value_box( 
-    title = "Saldo Kas Mushalla Saat Ini",
-    subtitle = "di Rekening Bank Jago Syariah",
+    title = "Saldo Kas Mushalla Last update: 16 May 10:33 WIB",
     value = tags$p(saldo_update, style = "font-size: 25px; color: steelblue;"),
     showcase = icon("wallet"), 
     full_screen = F 
     )
 
-h5("Download Laporannya")
-downloadButton("download_df_ops", "Download!")
+h5("Download Detail Transaksi Harian")
+downloadButton("download_operasional", "Download!")
 ```
 
-### Column {width=70%}
+### Column {width=55%}
 
 ```{r}
 #| title: Saluran infaq terbaik Anda dengan QRIS berikut ini
 imageOutput("qris")
 ```
 
-### Column {width=10%}
+### Column {width=15%}
 
 ```{r}
 checkboxGroupInput( 
@@ -90,11 +90,17 @@ checkboxGroupInput(
     "Pilih tahun transaksi untuk mengubah tampilan grafik", 
     choices  = tahun_op,
     selected = tahun_op)
+
+# checkboxGroupInput( 
+#     "filter_bulan_kas", 
+#     "Pilih bulan transaksi untuk mengubah tampilan grafik", 
+#     choices  = bulan_op,
+#     selected = bulan_op)
 ```
 
-## Row {height=50%}
+## Row {height=60%}
 
-### Column {width=30%}
+### Column {width=35%}
 
 ```{r}
 #| title: Proporsi Penerimaan dan Penggunaan Kas Mushalla
@@ -102,7 +108,7 @@ checkboxGroupInput(
 plotOutput("proporsi_plot")
 ```
 
-### Column {width=70%}
+### Column {width=65%}
 
 ```{r}
 #| title: Timeline Transaksi Keluar Masuk Kas Mushalla
@@ -119,11 +125,13 @@ plotOutput("timeline")
 # ==============================================================================
 # laporan kas mushalla
 
+# pemilihan tahun
 df_ops = reactive({
   pilihan = as.numeric(input$filter_tahun_kas)
   df_operasional %>% filter(tahun %in% pilihan)
 })
 
+# bikin plot proporsi
 output$proporsi_plot = renderPlot({
   batas_bawah = sum(df_ops()$out_trans,na.rm = T) * 1.1
   batas_atas  = sum(df_ops()$in_trans,na.rm = T) * 1.1
@@ -168,13 +176,15 @@ output$proporsi_plot = renderPlot({
 
 })
 
+# keluarkan qris
 output$qris <- renderImage( 
     { 
-      list(src = "QRIS_Musholla.jpg",height = "95%",width = "90%") 
+      list(src = "QRIS_Musholla.jpg",width = "80%",height = "100%") 
     }, 
     deleteFile = FALSE 
   ) 
 
+# bikin plot timeline
 output$timeline = renderPlot({
   df_ops() %>% 
     group_by(timeline) %>% 
@@ -203,11 +213,34 @@ output$timeline = renderPlot({
           axis.text.y = element_blank(),
           plot.title = element_text(size = 15),
           plot.subtitle = element_text(size = 14),
-          axis.text.x = element_text(size = 15),
+          axis.text.x = element_text(size = 13),
           plot.caption = element_text(size = 15),
           legend.text = element_text(size = 15)) +
     scale_x_discrete(guide = guide_axis(n.dodge = 3))
 })
+
+# bikin downloader
+# ini data frame nya
+df_download_ops = reactive({
+  df_operasional %>% 
+    select(tanggal,deskripsi,in_trans,out_trans) %>% 
+    rename("Kas Masuk" = in_trans,
+           "Kas Keluar" = out_trans) %>% 
+    adorn_totals()
+})
+  
+# kita bikin save file dulu
+output$download_operasional = downloadHandler(
+        filename = function() {
+            paste("Detail Transaksi Mushalla As Salaam Citra Residence",
+                  ".xlsx",
+                  sep = "")
+        },
+        content = function(file) {
+            # write.csv(data_param(),file,row.names = F)
+            write.xlsx(df_download_ops(), file)
+        }
+    )
 # ==============================================================================
 
 
