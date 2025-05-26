@@ -8,6 +8,7 @@ server: shiny
 ---
 
 ```{r}
+#| context: setup
 #| include: false
 rm(list=ls())
 gc()
@@ -22,6 +23,7 @@ library(ggpubr)
 library(janitor)
 library(shiny)
 library(shinydashboard)
+library(bslib)
 
 load("all_data.rda")
 
@@ -69,17 +71,37 @@ Dengan memohon rahmat dan ridho Allah Subhanahu wa Ta’ala, kami menyampaikan L
 
 Keberlangsungan aktivitas ibadah dan sosial di Mushalla As Salaam tidak lepas dari dukungan finansial yang dikelola secara amanah dan profesional. Melalui laporan ini, kami berupaya memastikan setiap rupiah digunakan sesuai dengan kebutuhan dan prioritas mushalla, baik untuk operasional harian, kegiatan keagamaan, maupun perawatan fasilitas. Kami mengucapkan terima kasih kepada seluruh pihak yang telah berkontribusi dan berpartisipasi, serta mengharapkan saran dan masukan untuk kemajuan mushalla ke depan.
 
+__Setiap panel pada laporan ini bisa di-*maximize* agar mudah dilihat.__
+
 Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
+
+# Cara Berinfaq
+
+```{r}
+#| title: Cara Praktis Berinfaq
+h6("Saluran infaq terbaik Anda dengan QRIS berikut ini:")
+imageOutput("qris")
+```
 
 # Laporan Kas Operasional
 
-## Row {height = 40}
+## Row {height=50%}
+
+### Column {width=30%}
 
 ```{r}
 #| title: Kas Mushalla
 
-valueBoxOutput("saldo_kas")
+value_box( 
+    title = "Saldo Kas Mushalla Saat Ini",
+    subtitle = "di Rekening Bank Jago Syariah",
+    value = saldo_update,
+    showcase = icon("wallet"), 
+    full_screen = F 
+    )
 ```
+
+### Column {width=50%}
 
 ```{r}
 #| title: Proporsi Penggunaan
@@ -87,18 +109,25 @@ valueBoxOutput("saldo_kas")
 plotOutput("proporsi_plot")
 ```
 
-## Row {height = 60}
+### Column {width=20%}
 
 ```{r}
 checkboxGroupInput( 
     "filter_tahun_kas", 
     "Pilih tahun transaksi", 
-    tahun_op)
+    choices  = tahun_op,
+    selected = tahun_op)
+
+h5("Download data excel-nya")
+downloadButton("download_df_ops", "Download!")
 ```
+
+## Row {height=50%}
 
 ```{r}
 plotOutput("timeline")
 ```
+
 
 # Laporan Qurban 2025
 
@@ -108,47 +137,57 @@ plotOutput("timeline")
 ```{r}
 #| context: server
 
-# value box untuk saldo kas
-output$saldo_kas = renderValueBox({
-  valueBox(
-    title = "Saldo Kas Mushalla",
-    subtitle = "di Rekening Bank Jago Syariah",
-    value = saldo_update,
-    icon = icon("wallet")
-    )
+df_ops = reactive({
+  pilihan = as.numeric(input$filter_tahun_kas)
+  df_operasional %>% filter(tahun %in% pilihan)
 })
 
 output$proporsi_plot = renderPlot({
-  batas_bawah = sum(df_operasional$output,na.rm = T) * 1.1
-batas_atas  = sum(df_operasional$input,na.rm = T) * 1.1
+  batas_bawah = sum(df_ops()$output,na.rm = T) * 1.1
+  batas_atas  = sum(df_ops()$input,na.rm = T) * 1.1
 
-df_operasional %>% 
-  mutate(input = ifelse(is.na(input),0,input),
-         output = ifelse(is.na(output),0,output)
-         ) %>% 
-  mutate(trans = input - output) %>% 
-  group_by(kategori) %>% 
-  summarise(trans = sum(trans)) %>% 
-  ungroup() %>% 
-  ggplot(aes(x = kategori,y = trans)) +
-  geom_col() +
-  geom_label(aes(label = scales::number(abs(trans),
-                                        prefix = "Rp",
-                                        big.mark = ".",
-                                        decimal.mark = ",")),
-             hjust = .5,
-             size = 3
-             ) +
-  coord_flip() +
-  ylim(-batas_bawah,batas_atas)
+  df_ops() %>% 
+    mutate(input = ifelse(is.na(input),0,input),
+           output = ifelse(is.na(output),0,output)
+           ) %>% 
+    mutate(trans = input - output) %>% 
+    group_by(kategori) %>% 
+    summarise(trans = sum(trans)) %>% 
+    ungroup() %>% 
+    mutate(warna = ifelse(trans > 0,"In","Out")) %>% 
+    ggplot(aes(x = kategori,y = trans)) +
+    geom_col(aes(fill = warna)) +
+    geom_label(aes(label = scales::number(abs(trans),
+                                          prefix = "Rp",
+                                          big.mark = ".",
+                                          decimal.mark = ",")),
+               hjust = .5,
+               size = 3
+               ) +
+    coord_flip() +
+    scale_fill_manual(values = c("steelblue","darkred")) +
+    ylim(-batas_bawah,batas_atas) +
+    labs(title = "Besaran Total Transaksi per Kategori",
+         subtitle = paste0("Pada tahun: ",
+                           paste(input$filter_tahun_kas,
+                                 collapse = " dan ")),
+         x = "Rupiah",
+         y = "Kategori",
+         fill = "Keterangan",
+         caption = "Dari grafik di atas, kita bisa melihat dari infaq yang diberikan\nhendak digunakan untuk aktivitas apa saja.") +
+    theme_minimal() +
+    theme(legend.position = "bottom",
+          axis.text.x = element_blank())
 
 })
 
-output$distPlot <- renderPlot({
-   x <- faithful[, 2]  # Old Faithful Geyser data
-   bins <- seq(min(x), max(x), length.out = input$bins + 1)
-   hist(x, breaks = bins, col = 'darkgray', border = 'white',
-        xlab = 'Waiting time to next eruption (in mins)',
-        main = 'Histogram of waiting times')
-})
+output$qris <- renderImage( 
+    { 
+      list(src = "QRIS Musholla.jpg") 
+    }, 
+    deleteFile = FALSE 
+  ) 
+
+
+
 ```
