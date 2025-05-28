@@ -48,6 +48,8 @@ saldo_update =
 
 ِبِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيْم
 
+::: {style="font-size: 90%;"}
+
 Dengan memohon rahmat dan ridho Allah Subhanahu wa Ta’ala, kami menyampaikan Laporan Keuangan Mushalla As Salaam sebagai bentuk pertanggungjawaban atas pengelolaan dana yang dipercayakan oleh jamaah dan donatur. Laporan ini mencakup seluruh pemasukan dan pengeluaran selama periode 2024-2025, yang diharapkan dapat memberikan transparansi serta kepercayaan dalam pengelolaan keuangan mushalla. Semoga laporan ini menjadi sarana evaluasi dan perbaikan untuk meningkatkan kualitas pelayanan kepada masyarakat.  
 
 Keberlangsungan aktivitas ibadah dan sosial di Mushalla As Salaam tidak lepas dari dukungan finansial yang dikelola secara amanah dan profesional. Melalui laporan ini, kami berupaya memastikan setiap rupiah digunakan sesuai dengan kebutuhan dan prioritas mushalla, baik untuk operasional harian, kegiatan keagamaan, maupun perawatan fasilitas. Kami mengucapkan terima kasih kepada seluruh pihak yang telah berkontribusi dan berpartisipasi, serta mengharapkan saran dan masukan untuk kemajuan mushalla ke depan.
@@ -56,6 +58,7 @@ __Setiap panel pada laporan ini bisa di-*maximize* agar mudah dilihat.__
 
 Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
 
+:::
 
 # Laporan Kas Operasional
 
@@ -118,9 +121,9 @@ plotOutput("timeline")
 
 # Laporan Renovasi Mushalla 2025
 
-## Row {height=40%}
+## Row {height=30%}
 
-### Column {width=70%}
+### Column {width=65%}
 
 Menjelang Ramadhan tahun 2025, Mushalla As Salaam melakukan beberapa kegiatan Ramadhan serta renovasi ringan seperti:
 
@@ -131,16 +134,16 @@ Menjelang Ramadhan tahun 2025, Mushalla As Salaam melakukan beberapa kegiatan Ra
 
 Catatan: Sisa saldo dialihkan ke kas mushalla.
 
-### Column {width=30%}
+### Column {width=35%}
 
 ```{r}
 #| title: Download detail transaksi
 downloadButton("download_renovasi", "Download!")
 ```
 
-## Row {height=60%}
+## Row {height=70%}
 
-### Column {width=55%}
+### Column {width=40%}
 
 ```{r}
 #| title: Total Transaksi per Kategori
@@ -164,7 +167,7 @@ df_renov %>%
   
 ```
 
-### Column {width=45%}
+### Column {width=60%}
 
 ```{r}
 #| title: lalala
