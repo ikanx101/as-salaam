@@ -65,7 +65,7 @@ Dikembangkan oleh [ikanx101.com](https://ikanx101.com).
 
 ```{r}
 value_box( 
-    title = "Saldo Kas Mushalla Last update: 16 May 10:33 WIB",
+    title = "Saldo Kas Mushalla Last update: 27 May 09:09 WIB",
     value = tags$p(saldo_update, style = "font-size: 25px; color: steelblue;"),
     showcase = icon("wallet"), 
     full_screen = F 
@@ -116,14 +116,81 @@ plotOutput("proporsi_plot")
 plotOutput("timeline")
 ```
 
+# Laporan Renovasi Mushalla 2025
+
+## Row {height=40%}
+
+### Column {width=70%}
+
+Menjelang Ramadhan tahun 2025, Mushalla As Salaam melakukan beberapa kegiatan Ramadhan serta renovasi ringan seperti:
+
+1. Penambalan atap bocor,
+1. Pengecatan ulang interior,
+1. Penggantian _sound system_, dan
+1. Penggantian keramik.
+
+Catatan: Sisa saldo dialihkan ke kas mushalla.
+
+### Column {width=30%}
+
+```{r}
+#| title: Download detail transaksi
+downloadButton("download_renovasi", "Download!")
+```
+
+## Row {height=60%}
+
+### Column {width=55%}
+
+```{r}
+#| title: Total Transaksi per Kategori
+
+df_renov %>% 
+  group_by(tanggal,kategori) %>% 
+  summarise(in_put = sum(in_put,na.rm = T),
+            out_put = sum(out_put,na.rm = T)) %>% 
+  ungroup() %>% 
+  melt(id.vars = c("tanggal","kategori")) %>% 
+  mutate(value_ = ifelse(variable == "in_put",value,-value)) %>% 
+  filter(value > 0) %>% 
+  group_by(kategori) %>% 
+  summarise(val = sum(value_)) %>% 
+  ungroup() %>% 
+  adorn_totals(name = "Sisa saldo") %>% 
+  rename(value = val) %>% 
+  mutate(value = scales::dollar(value,prefix = "Rp")) %>% 
+  rename(Kategori = kategori,
+         "Nilai Transaksi" = value)
+  
+```
+
+### Column {width=45%}
+
+```{r}
+#| title: lalala
+
+df_renov %>% 
+  group_by(tanggal) %>% 
+  summarise(in_put = sum(in_put,na.rm = T),
+            out_put = sum(out_put,na.rm = T)) %>% 
+  ungroup() %>% 
+  mutate(cum_in = cumsum(in_put),
+         cum_out = cumsum(out_put)) %>% 
+  select(-in_put,-out_put) %>% 
+  melt(id.vars = "tanggal") %>% 
+  ggplot(aes(x = tanggal,y = value)) +
+  geom_line(aes(group = variable,color = variable))
+```
+
+
+
 # Laporan Qurban 2025
 
 
 ```{r}
 #| context: server
 
-# ==============================================================================
-# laporan kas mushalla
+# ==================================================================# laporan kas mushalla
 
 # pemilihan tahun
 df_ops = reactive({
@@ -241,7 +308,11 @@ output$download_operasional = downloadHandler(
             write.xlsx(df_download_ops(), file)
         }
     )
-# ==============================================================================
+# ==================================================================
+
+
+# ==================================================================
+# laporan renovasi mushalla
 
 
 ```

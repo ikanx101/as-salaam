@@ -93,14 +93,14 @@ No;Tanggal;Keterangan;In;Out;Saldo;Kategori;Catatan
 92;12 May 2025;Infaq;Rp	30.000;;Rp 2.726.448;Infaq;
 93;12 May 2025;Pembelian alat kebersihan;;Rp	30.000;Rp 2.696.448;Pembelian alat kebersihan;
 94;16 May 2025;Kafalah Ust. Edo;;Rp	400.000;Rp 2.296.448;Kafalah;
+95;24 May 2025;Infaq (QRIS);Rp	505.000;;;Infaq;Pak Furqon
+96;24 May 2025;Kafalah Ust. Edo;;Rp	400.000;;Kafalah;
+97;24 May 2025;Infaq (kotak amal);Rp	942.000;;;Infaq;
+98;26 May 2025;Infaq (QRIS);Rp	300.000;;;Infaq;Bu Ririn
+;27 May 2025;Infaq (QRIS);Rp	310.000;;;Infaq;
 ;;;;;;;
 ;;;;;;;
-;;;;;;;
-;;;;;;;
-;;;;;;;
-;;;;;;;
-;;;;;;;
-;Total;;Rp	29.254.498;Rp	26.958.050;Rp 2.296.448;;
+;Total;;Rp	31.311.498;Rp	27.358.050;Rp 3.953.448;;
 ;;;;;;;
 ;Catatan Bendahara:;;Saldo di rek Jago;Saldo Tunai;Total;;
-;;;Rp	2.296.448;Rp	0;Rp 2.296.448;;
+;;;Rp	3.276.448;Rp	677.000;Rp 3.953.448;Rp	265.000;265

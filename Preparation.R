@@ -109,7 +109,23 @@ df_renov =
     grepl("infaq",keterangan) ~ "Infaq",
     grepl("Saldo",keterangan) ~ "Sisa saldo renovasi lalu",
     grepl("Sandra",keterangan) ~ "Kegiatan Ramadhan"
-  ))
+  )) %>% 
+  rename(in_put = `in`,
+         out_put = `out`
+  ) %>% 
+  mutate(in_put = gsub("Rp","",in_put,fixed = T),
+         in_put = gsub("\\.","",in_put)) %>% 
+  mutate(out_put = gsub("Rp","",out_put,fixed = T),
+         out_put = gsub("\\.","",out_put)) %>% 
+  mutate(in_put  = gsub(" ","",in_put),
+         out_put = gsub(" ","",out_put)) %>% 
+  mutate(in_put  = stringr::str_trim(in_put),
+         out_put = stringr::str_trim(out_put)) %>% 
+  mutate(in_put  = as.numeric(in_put),
+         out_put = as.numeric(out_put)) %>% 
+  select(-saldo)
+
+df_renov
 # ============================================================
 
 # kita save semuanya dulu
