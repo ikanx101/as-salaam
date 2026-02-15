@@ -1,5 +1,3 @@
-# ini buat bikinnya
-docker login
 docker build -t ikanx101/assalam . 
 sudo docker tag ikanx101/assalam:latest ikanx101/assalam:latest
 sudo docker push ikanx101/assalam:latest
